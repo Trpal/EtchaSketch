@@ -7,5 +7,17 @@
   height: 800px;
   margin-left: auto;
   margin-right: auto;
-  background-color: blue;
+  background-color: white;
 }
+
+
+.square{
+  background-color: black;
+  width: 48px;
+  height: 48px;
+  float: left;
+  display: inline-block;
+  margin: 1px;
+  opacity: 0.1;
+}
+
