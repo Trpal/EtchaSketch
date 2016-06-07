@@ -63,7 +63,9 @@ function getRandomColor() {
 
 function ghostmode() {
   $(".square").mouseenter(function(event) {
+    $(this).css("background-color", "black");
     $(this).css("opacity", 1)
+
   });
   $(".square").mouseleave(function(event) {
     $(this).fadeTo('slow', 0.1);
@@ -76,6 +78,7 @@ function gradientmode() {
       var opa = $(this).css("opacity");
       if (opa < 1){
         $(this).css("opacity", opa*1.5);
+        $(this).css("background-color", "black");
     }
   });
 }
@@ -83,6 +86,7 @@ function gradientmode() {
 function normalmode() {
   $(".square").mouseenter(function(event) {
     /* Act on the event */
+    $(this).css("background-color", "black");
     $(this).css("opacity", 1);
   });
 };
