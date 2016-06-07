@@ -1,19 +1,40 @@
-var rows = 16;
-var columns = 16;
-
 var $square = $("<div class='square'></div>");
 
 $(document).ready(function() {
-  createGrid(26);
+  createGrid(16);
+
+  $("#new").click(function(){
+    var sidesize = prompt("Give a number of squares per side (1-50): ")
+    if(sidesize > 0 && sidesize < 51){
+      createGrid(sidesize);
+    };  
+  });
+
+  $("#normal").click(function() {
+    $(".square").unbind();
+    normalmode();
+  });
+
+  $("#gradient").click(function() {
+    $(".square").unbind();
+    gradientmode();
+  });
+
+  $("#ghost").click(function(){
+    $(".square").unbind();
+    ghostmode();
+  });
+
+  $("#random").click(function(){
+    $(".square").unbind();
+    randomcolormode();
+  })
+
 });
 
-$(function(){
-  $("#reset").click(function() {
-    $(".square").css("background-color", "red");
-    rows = prompt("Number of rows and columns: ");
-    createGrid(rows);
-  });
-});
+
+
+
 
 function createGrid(squaresperside)
 {
@@ -28,25 +49,49 @@ function createGrid(squaresperside)
   // set the square size so the grid fits in the wrapper
   $(".square").css("height", squaresize);
   $(".square").css("width", squaresize);
-  gradient();
+
 }
 
-function normalmode() {
-  $(".square").mouseleave(function(event) {
-    /* Act on the event */
-    $(this).css("background-color", "green");
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function ghostmode() {
+  $(".square").mouseenter(function(event) {
+    $(this).css("opacity", 1)
   });
+  $(".square").mouseleave(function(event) {
+    $(this).fadeTo('slow', 0.1);
+  });
+}
 
-};
-
-function gradient() {
-  $(".square").mouseleave(function(event)
+function gradientmode() {
+  $(".square").mouseenter(function(event)
     {
       var opa = $(this).css("opacity");
-
       if (opa < 1){
         $(this).css("opacity", opa*1.5);
     }
-    
   });
 }
+
+function normalmode() {
+  $(".square").mouseenter(function(event) {
+    /* Act on the event */
+    $(this).css("opacity", 1);
+  });
+};
+
+function randomcolormode() {
+  $(".square").mouseenter(function(event) {
+    $(this).css("opacity", 1)
+    $(this).css("background-color", getRandomColor());
+
+  });
+}
+
